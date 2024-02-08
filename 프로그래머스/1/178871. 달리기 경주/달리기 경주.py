@@ -10,10 +10,10 @@ def solution(players, callings):
         score[players[n-1]] += 1
         score[name] -= 1
         
-        e = players[n-1]
-        players[n-1] = players[n]
-        players[n] = e
-        
+        # e = players[n-1]
+        # players[n-1] = players[n]
+        # players[n] = e
+        players[n] , players[n-1] = players[n-1] , players[n]
         
     score = sorted(score.items(), key=lambda x: x[1])
 
