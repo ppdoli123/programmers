@@ -1,4 +1,6 @@
 def solution(today, terms, privacies):
+    def today_s(year,month,day):
+        return year * 28 * 12 + month * 28 + day
     answer = []
     terms_dic = {}
     for term in terms:
@@ -17,12 +19,7 @@ def solution(today, terms, privacies):
             mon = 12
         day -= 1
         today_year,today_mon,today_day = map(int,today.split("."))
-        if today_year > year:
+        
+        if today_s(today_year,today_mon,today_day) > today_s(year,mon,day):
             answer.append(i+1)
-        elif today_year == year:
-            if today_mon > mon:
-                answer.append(i+1)
-            elif today_mon == mon:
-                if today_day > day :
-                    answer.append(i+1)
     return answer
