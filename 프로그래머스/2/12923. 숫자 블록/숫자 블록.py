@@ -1,16 +1,21 @@
-def maxdivisor(numb):
-    if numb == 1:
-        return 0
-    ans = [1]
-    for i in range(2, int(numb**(1/2)) + 1):
-        if (numb % i == 0) and i <= 1e7:
-            ans.append(i)
-            if numb//i <= 1e7 and numb//i != numb:
-                ans.append((numb // i))
-    return max(ans)
-
+import math
 def solution(begin, end):
-    answer = []
+    result = []
+    answer = [0]
+
     for i in range(begin,end+1):
-        answer.append(maxdivisor(i))
-    return answer
+        n = 0
+        for e in range(2,int(math.sqrt(i))+1):
+            if i%e == 0 and e <= 1e7:
+                n = e
+                if i // e <= 1e7:
+                    n = i // e
+                    break
+        if n == 0 :
+            n = 1
+        result.append(n)
+        
+    if begin == 1:
+        result[0]=0
+        
+    return result
