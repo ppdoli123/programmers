@@ -1,0 +1,13 @@
+-- 코드를 입력하세요
+SELECT CASE WHEN PRICE < 10000 THEN 0
+WHEN PRICE < 20000 THEN 10000
+when price < 30000 then 20000
+when price < 40000 then 30000
+when price < 50000 then 40000
+when price < 60000 then 50000
+when price < 70000 then 60000
+when price < 80000 then 70000
+when price < 90000 then 80000
+ELSE 90000 END AS PRICE_GROUP , COUNT(*) AS PRODUCTS FROM PRODUCT
+GROUP BY PRICE_GROUP
+ORDER BY PRICE_GROUP
