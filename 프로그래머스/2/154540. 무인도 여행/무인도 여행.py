@@ -2,28 +2,28 @@ import sys
 sys.setrecursionlimit(10**6)
 def solution(maps):
     answer = []
-    height = len(maps)    # 세로 길이
-    width = len(maps[0])  # 가로 길이
-    
-    check = [[False] * width for _ in range(height)]
-
-    def ref(x, y, result):
-        check[x][y] = True
-        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]  # 하, 상, 우, 좌
+    rows = len(maps)
+    columns = len(maps[0])
+    checked = [[True for _ in range(columns)] for _ in range(rows)]
+    def process(x,y,answer):
+        checked[x][y] = False
+        dimension = [[1,0],[-1,0],[0,1],[0,-1]]
+        for dx,dy in dimension:
+            nx,ny = x + dx, y + dy
+            if 0 <= nx < rows and 0 <= ny < columns:
+                if maps[nx][ny] != "X" and checked[nx][ny]:
+                    answer += int(maps[nx][ny])
+                    answer = process(nx,ny,answer)
         
-        for dx, dy in directions:
-            nx, ny = x + dx, y + dy
-            if 0 <= nx < height and 0 <= ny < width and maps[nx][ny] != "X" and not check[nx][ny]:
-                result += int(maps[nx][ny])
-                result = ref(nx, ny, result)
-        
-        return result
+        return answer
     
-    for i in range(height):
-        for j in range(width):
-            if maps[i][j] != "X" and not check[i][j]:
-                result = ref(i, j, int(maps[i][j]))
-                answer.append(result)
+    for row in range(rows):
+        for column in range(columns):
+            if maps[row][column] != "X" and checked[row][column]:
+                answer.append(process(row,column,int(maps[row][column])))
                 
-    # answer.sort()
-    return sorted(answer) if answer else [-1]
+    if len(answer) == 0 :
+        return [-1]
+    else:
+        answer.sort()           
+    return answer
