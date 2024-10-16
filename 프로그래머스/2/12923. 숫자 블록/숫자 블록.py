@@ -2,7 +2,7 @@ import math
 def solution(begin, end):
     result = []
     answer = [0]
-
+    
     for i in range(begin,end+1):
         n = 0
         for e in range(2,int(math.sqrt(i))+1):
